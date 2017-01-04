@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Biblioteca digital</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/stylesheets/style.css}" />
+</head>
+<body>
+	<div class="container">
+		<div class="page-header">
+			<h1 class="bd-title">Biblioteca digital</h1>
+			<div class="clearfix">
+				<div class="pull-left">
+					<p class="lead">Organize sua coleção de livros</p>
+				</div>
+				<div class="pull-right">
+					<button type="button" class="btn btn-default btn-sm"
+							data-toggle="modal" data-target="#novoLivroModal">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+    		<div class="col-md-4" th:each="livro : ${livros}">
+				<h2 th:text="${livro.titulo}">Título do livro</h2>
+				<h4 th:text="${livro.autor}">Autor do livro</h4>
+				<p th:text="${livro.nota}">Nota ou comentário sobre o livro</p>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="novoLivroModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span>&times;</span>
+						</button>
+						<h4 class="modal-title">Novo livro</h4>
+					</div>
+					<form th:action="@{/livros}" method="POST" th:object="${livro}">
+						<div class="modal-body">
+								<div class="form-group">
+	    							<label for="titulo">Título</label>
+	    							<input type="text" class="form-control" id="titulo" placeholder="Título" th:field="*{titulo}">
+	  							</div>
+								<div class="form-group">
+								    <label for="autor">Autor</label>
+								    <input type="text" class="form-control" id="autor" placeholder="Autor" th:field="*{autor}">
+								</div>
+								<div class="form-group">
+								    <label for="nota">Nota</label>
+								    <textarea class="form-control" rows="3" id="nota" th:field="*{nota}"></textarea>
+								</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary">Adicionar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
